@@ -1,6 +1,6 @@
 % Define grid and boundary conditions
-nx = 50;
-ny = 50;
+nx = 100;
+ny = 100;
 Lx = 1.0;
 Ly = 1.0;
 dx = Lx / (nx-1);
@@ -24,7 +24,7 @@ A(ind,:) = sparse(1:numel(ind), ind, ones(numel(ind),1), numel(ind), nx*ny);
 b(ind) = u(ind);
 
 % Jacobi smoothing iteration
-tol = 1e-4;
+tol = 1e-7;
 err = tol+1;
 iter = 0;
 while err > tol
