@@ -30,8 +30,8 @@ function u = jacobi_2d(u, f, dx, dy, max_iters)
          for i = 2:m-1
              for j = 2:n-1
                    u(i,j) = (1/4) * (u_old(i+1,j) + u_old(i-1,j) + u_old(i,j+1) + u_old(i,j-1) - dx^2*dy^2*f(i,j));
-             end
-         end
+    end
+            end
      end
 end
 
