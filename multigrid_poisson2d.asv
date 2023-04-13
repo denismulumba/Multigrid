@@ -1,6 +1,6 @@
 
 
-function [u, res] = multigrid_poisson2d(N, nu1, nu2, levels, v1, v2)
+function u  = multigrid_poisson2d(u, f, L, Ncycles, Npre, Npost)
 % Inputs"
 % N - number of grid points in each direction (minus boundary points)
 % nu1 - number of pre-smoothing iterations

@@ -14,10 +14,10 @@ function res = residual(u, f, h)
 % res: 2D array of floats representing the residual
     
     [m,n ] = size(u);
-    res = zeros(m,n);
+    res = zeros(m,1);
     
     for i = 2:m-1
-        for j = 2:n-1
+        for j = 2:n-2
             res(i,j) = f(i,j) - (1/h^2)*(4*u(i,j)- u(i-1,j)-u(i+1,j)-u(i,j-1)-u(i,j+1));
         end
     end
