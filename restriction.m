@@ -21,7 +21,7 @@ function r = restriction(u)
             j2 = 2*j;
     
             %compute the restricted value
-            r(i,j) = 0.24*(u(i1,j1)+u(i1,j2)+u(i2,j1)+u(i2,j2));
+            r(i,j) = 0.25*(u(i1,j1)+u(i1,j2)+u(i2,j1)+u(i2,j2));
     
         end
     end
