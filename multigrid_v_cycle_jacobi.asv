@@ -9,7 +9,7 @@ relax = @(u, f, h) jacobi(u, f, h, omega, Npre, Npost);
 restrict = @(u) restriction(u);
 
 % Define interpolation function
-interp = @(u) bilinear_interp(u);
+interp = @(u) bilinear_interpolation(u_coarse, u_fine);
 
 % Define residual function
 res = @(u, f, h) residual(u, f, h);
@@ -57,19 +57,17 @@ for cycle = 1:Ncycles
     end
    
     % Bottom-level correction
-    if length(F{num_levels}) <=2
-        L = round(L);
         U{num_levels} = direct_solve(F{num_levels}, h);
     end
     % Upward sweep
     for k = num_levels-1:-1:1
         % Interpolate and add correction to solution
-        E = interp(U{k+1});
+        E = interp(U{k+1}, U{k+1});
         U{k} = U{k} + E;
        
         % Post-smoothing
         U{k} = relax(U{k}, F{k}, h);
-    end
+    
    
     % Compute residual and error
     R{1} = residual(U{1}, F{1}, h);

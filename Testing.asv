@@ -3,14 +3,14 @@ clear all
 %Define problem parameterts
 
 L = 17; % number of grid points in each direction
-[X, Y] = meshgrid(linspace(0, 1, L), linspace(0, 1, L));
+[X, Y] = meshgrid(linspace(0, 1, L-1), linspace(0, 1, L-1));
 
 f = rhs_func(X,Y);
 u_exact = exact_soultion(X,Y);
 
 %Set up the initial guess
 
-uo = zeros(L,L);
+uo = zeros(L-1,L-1);
 disp(size(uo))
 
 %Set up multigrid parameters
