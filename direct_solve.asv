@@ -17,8 +17,8 @@ for i = 2:L-1 % interior points
         A(k, k) = -4/h^2;
         A(k, k-1) = 1/h^2;
         A(k, k+1) = 1/h^2;
-        A(k, k-L) = 1/h^2;
-        A(k, k+L) = 1/h^2;
+        A(k, k-N) = 1/h^2;
+        A(k, k+N) = 1/h^2;
         f(k) = f(X(i,j), Y(i,j)); % evaluate f at (x_i, y_j)
     end
 end
@@ -28,15 +28,15 @@ for j = 1:N % bottom and top boundaries
     k = j;
     A(k, k) = 1;
     f(k) = 0;
-    k = (L-1)*L + j;
+    k = (N-1)*N + j;
     A(k, k) = 1;
     f(k) = 0;
 end
-for i = 2:L-1 % left and right boundaries
-    k = (i-1)*L + 1;
+for i = 2:N-1 % left and right boundaries
+    k = (i-1)*N + 1;
     A(k, k) = 1;
     f(k) = 0;
-    k = i*L;
+    k = i*N;
     A(k, k) = 1;
     f(k) = 0;
 end
@@ -45,5 +45,5 @@ end
 u = A\f;
 
 % Reshape the solution vector into a 2D array
-u = reshape(u, L, L);
+u = reshape(u, N, N);
 end

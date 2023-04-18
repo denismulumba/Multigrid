@@ -1,11 +1,12 @@
 close all 
+clear all
 %Define problem parameterts
 
 L = 65; % number of grid points in each direction
 [X, Y] = meshgrid(linspace(0, 1, L-1), linspace(0, 1, L-1));
 
 f = rhs_func(X,Y);
-u_exact = exact_soultion(x,y);
+u_exact = exact_soultion(X,Y);
 
 %Set up the initial guess
 
@@ -18,9 +19,7 @@ Npre = 2;
 Npost = 2;
 
 disp(size(f))
-%disp(f)
-
-
+disp(u_exact)
 
 
 % Solve using multigrid V -cycle with Jacobi smoother and bilinear
@@ -29,8 +28,7 @@ disp(size(f))
 %u = multigrid_v_cycle_jacobi(uo, f, L, Ncycles, Npre, Npost);
 
 % Plot numerical solution and exact solution
-
-% 
+ 
 % figure;
 % subplot(1, 2, 1);
 % surf(X, Y, u);
@@ -39,9 +37,9 @@ disp(size(f))
 % ylabel('y');
 % zlabel('u');
 % subplot(1, 2, 2);
-% surf(X, Y, u_exact(X, Y));
-% title('Exact solution');
-% xlabel('x');
-% ylabel('y');
-% zlabel('u');
-% 
+surf(X, Y, u_exact(X, Y));
+title('Exact solution');
+xlabel('x');
+ylabel('y');
+zlabel('u');
+

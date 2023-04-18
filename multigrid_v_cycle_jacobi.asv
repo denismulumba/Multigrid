@@ -57,6 +57,8 @@ for cycle = 1:Ncycles
     end
    
     % Bottom-level correction
+    if length(F{num_levels}) <=2
+        L = round(L);
         U{num_levels} = direct_solve(F{num_levels}, h);
     end
     % Upward sweep
@@ -67,7 +69,7 @@ for cycle = 1:Ncycles
        
         % Post-smoothing
         U{k} = relax(U{k}, F{k}, h);
-    
+    end
    
     % Compute residual and error
     R{1} = residual(U{1}, F{1}, h);
