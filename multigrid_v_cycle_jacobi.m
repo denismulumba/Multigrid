@@ -12,7 +12,7 @@ restrict = @(u) restriction(u);
 interp = @(u) bilinear_interp(u);
 
 % Define residual function
-residual = @(u, f, h) compute_residual(u, f, h);
+res = @(u, f, h) residual(u, f, h);
 
 % Define exact solution function (for testing)
 exact = @(x, y) exact_u(x, y);
@@ -20,6 +20,13 @@ exact = @(x, y) exact_u(x, y);
 % Define initial grid spacing and number of levels
 h = 1/(L-1);
 num_levels = log2(L-1)+1;
+
+% define rhs
+f = @(x,y)   rhs_func(x,y);
+
+%define A
+A = poisson2d(L);
+
 
 % Define hierarchy of grids
 U = cell(num_levels, 1); % stores the numerical solutions
@@ -41,7 +48,7 @@ for cycle = 1:Ncycles
         U{k} = relax(U{k}, F{k}, h);
        
         % Compute residual and restrict to coarser grid
-        R{k} = residual(U{k}, F{k}, h);
+        R{k} = res(U{k}, F{k}, h);
         F{k+1} = restrict(R{k});
        
         % Initialize solution guess for next level
@@ -49,8 +56,9 @@ for cycle = 1:Ncycles
     end
    
     % Bottom-level correction
-    U{num_levels} = direct_solve(F{num_levels}, h);
-   
+    if length(F{num_levels}) <=2
+        U{num_levels} = direct_solve(A,F{num_levels}, h);
+    end
     % Upward sweep
     for k = num_levels-1:-1:1
         % Interpolate and add correction to solution
