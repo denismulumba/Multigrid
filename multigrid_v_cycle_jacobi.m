@@ -5,6 +5,7 @@ function u = multigrid_v_cycle_jacobi(u, f, L, Ncycles, Npre, Npost)
 % Define relaxation function
 omega = 2/3; % Jacobi relaxation parameter
 relax = @(u, f, h) jacobi(u, f, h, omega, Npre, Npost);
+%relax = @(u,f,h) jacobi_2d(u, f, h, Npre, Npost);
 
 % Define restriction function
 restrict = @(u) restriction(u);
@@ -34,7 +35,7 @@ U{1} = u;
 F{1} = f;
 for k = 2:num_levels
     n = (L-1)/2^(k-1) + 1; % number of grid points in each direction
-    disp(n)
+    %disp(n)
     U{k} = zeros(n, n); % initialize numerical solution
     F{k} = zeros(n, n); % initialize right-hand side
 end
@@ -48,7 +49,10 @@ for cycle = 1:Ncycles
        
         % Compute residual and restrict to coarser grid
         R{k} = res(U{k}, F{k}, h);
+        %disp(R{k})
+        %disp(size(R{k}))
         F{k+1} = restrict(R{k});
+        %disp(F{k+1})
        
         % Initialize solution guess for next level
         U{k+1} = zeros(size(F{k+1}));
@@ -56,24 +60,42 @@ for cycle = 1:Ncycles
    
     % Bottom-level correction
         U{num_levels} = direct_solve(F{num_levels}, h);
+        %disp(U{num_levels})
   
     % Upward sweep
     for k = num_levels-1:-1:1
         % Interpolate and add correction to solution
         E = interp(U{k+1});
-      
+        %disp(E)
+
         U{k} = U{k} + E;
-        disp(U)
-        disp(E)
-        disp(size(U{k}))
-        disp(size((E)))
+       % disp(U{k});
+        
         % Post-smoothing
         U{k} = relax(U{k}, F{k}, h);
+        
+        
+        %M = cell2mat(U(1));
+        %disp(M)
     
     end
     % Compute residual and error
-    R{1} = residual(U{1}, F{1}, h);
-    err = norm(R{1}(:), 2) / sqrt((L-1)^2);
+    R{1} = res(U{1}, F{1}, h);
+    err = norm(R{1}(:), 2)/ sqrt((L-1)^2);
     fprintf('Cycle %d: error = %e\n', cycle, err);
+    L = 129; % number of grid points in each direction
+    [X, Y] = meshgrid(linspace(0, 1, L), linspace(0, 1, L));
+
+    %f = rhs_func(X,Y);
+
+    figure;
+    %subplot(1, 2, 1);
+    surf(X, Y, U{k});
+    title('Numerical solution');
+    xlabel('x');
+    ylabel('y');
+    zlabel('u');
+    %subplot(1, 2, 2);
+ 
 end
 end

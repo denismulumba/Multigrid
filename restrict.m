@@ -26,5 +26,5 @@ for i = 1:m_coarse
         end
     end
 end
-
+%disp(F_coarse)
 end

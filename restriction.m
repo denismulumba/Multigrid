@@ -11,8 +11,8 @@ function r = restriction(u)
     
     % loop over coarse grid points
     
-    for i = 1:m_coarse
-        for j = 1:n_coarse
+    for i = 1:m_coarse -1
+        for j = 1:n_coarse -1
             % determine indices of neigbouring fine grid points
     
             i1 = 2*i - 1;
@@ -23,7 +23,9 @@ function r = restriction(u)
             %compute the restricted value
             r(i,j) = 0.25*(u(i1,j1)+u(i1,j2)+u(i2,j1)+u(i2,j2));
     
+
         end
     end
+    %disp(r)
 end
 

@@ -45,8 +45,8 @@ for i = 1:m_coarse-1
             
             
         end
-        %disp(j1);
-        %disp(j2);
+        disp(j1);
+        disp(j2);
        
         % Interpolate
         if i > 1 && i < m_coarse && j > 1 && j < n_coarse
@@ -54,7 +54,7 @@ for i = 1:m_coarse-1
             u_fine(i2,j1) = 0.5*(u_coarse(i,j) + u_coarse(i+1,j));
             u_fine(i1,j2) = 0.5*(u_coarse(i,j) + u_coarse(i,j+1));
             u_fine(i2,j2) = 0.25*(u_coarse(i,j) + u_coarse(i+1,j) + u_coarse(i,j+1) + u_coarse(i+1,j+1));
-            %disp(u_fine);
+            disp(u_fine);
         else
             u_fine(i1,j1) = u_coarse(i,j);
             u_fine(i2,j1) = u_coarse(i+1,j);

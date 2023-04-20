@@ -18,7 +18,7 @@ function res = residual(u, f, h)
     
     for i = 2:m-1
         for j = 2:n-1
-            res(i,j) = f(i,j) - (1/h^2)*(4*u(i,j)- u(i-1,j)-u(i+1,j)-u(i,j-1)-u(i,j+1));
+            res(i,j) = f(i,j) - (1/h^2)*(-4*u(i,j)+ u(i-1,j)+u(i+1,j)+u(i,j-1)+u(i,j+1));
         end
     end
     
@@ -27,5 +27,5 @@ function res = residual(u, f, h)
     res(m,:) = 0;
     res(:,1) = 0;
     res(:,n) = 0;
-
+%disp(res)
 end

@@ -2,7 +2,7 @@ close all
 clear all
 %Define problem parameterts
 
-L = 17; % number of grid points in each direction
+L = 129; % number of grid points in each direction
 [X, Y] = meshgrid(linspace(0, 1, L), linspace(0, 1, L));
 
 f = rhs_func(X,Y);
@@ -11,10 +11,10 @@ u_exact = exact_soultion(X,Y);
 %Set up the initial guess
 
 uo = zeros(L,L);
-disp(size(uo))
+%disp(size(uo))
 
 %Set up multigrid parameters
-Ncycles = 4;
+Ncycles = 7;
 Npre = 2;
 Npost = 2;
 
@@ -31,7 +31,7 @@ u = multigrid_v_cycle_jacobi(uo, f, L, Ncycles, Npre, Npost);
 
 % Plot numerical solution and exact solution
  
-% figure;
+figure;
 % subplot(1, 2, 1);
 % surf(X, Y, u);
 % title('Numerical solution');
@@ -39,9 +39,9 @@ u = multigrid_v_cycle_jacobi(uo, f, L, Ncycles, Npre, Npost);
 % ylabel('y');
 % zlabel('u');
 % subplot(1, 2, 2);
-% surf(X, Y, u_exact(X, Y));
-% title('Exact solution');
-% xlabel('x');
-% ylabel('y');
-% zlabel('u');
+surf(X, Y, u_exact);
+title('Exact solution');
+xlabel('x');
+ylabel('y');
+zlabel('u');
 % 
