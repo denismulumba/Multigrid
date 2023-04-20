@@ -10,25 +10,25 @@ u_exact = exact_soultion(X,Y);
 
 %Set up the initial guess
 
-uo = zeros(L,L);
+
 %disp(size(uo))
 
 %Set up multigrid parameters
-Ncycles = 7;
-Npre = 2;
-Npost = 2;
+Ncycles = 11;
+Npre = 23;
+Npost = 23;
 
 %disp(size(f))
 %disp(u_exact)
 %disp(size(u_exact))
-
+uo = zeros(L,L);
 
 % Solve using multigrid V -cycle with Jacobi smoother and bilinear
 % interpolation
 
-u = multigrid_v_cycle_jacobi(uo, f, L, Ncycles, Npre, Npost);
-
-
+%u = multigrid_v_cycle_jacobi(uo, f, L, Ncycles, Npre, Npost);
+U{1} = multigrid_v_cycle_jacobi(uo, f, L, Ncycles, Npre, Npost);
+%disp(U{1})
 % Plot numerical solution and exact solution
  
 figure;

@@ -1,6 +1,6 @@
 
 
-function u = jacobi_2d(u, f, h, Npre, Npost)
+function u = jacobi_2d(u, f, h, ~, Npost)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Perform Jacobirelaxation on a 2D grid for the Poisson equation
 % woth Dirichlet BCs
@@ -28,10 +28,11 @@ function u = jacobi_2d(u, f, h, Npre, Npost)
           u_old = u;
          for i = 2:m-1
              for j = 2:n-1
-                   u(i,j) = (1/4) * (u_old(i+1,j) + u_old(i-1,j) + u_old(i,j+1) + u_old(i,j-1) - h^2 *f(i,j));
+                   u(i,j) = (1/4) * (u_old(i+1,j) + u_old(i-1,j) + u_old(i,j+1) + u_old(i,j-1) - (h^2)*f(i,j));
              end
          end
      end
+     %disp(u)
 end
 
 

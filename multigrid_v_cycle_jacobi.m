@@ -10,8 +10,10 @@ relax = @(u, f, h) jacobi(u, f, h, omega, Npre, Npost);
 % Define restriction function
 restrict = @(u) restriction(u);
 
+
 % Define interpolation function
 interp = @(u) bilinear_interpolation(u);
+
 
 % Define residual function
 res = @(u, f, h) residual(u, f, h);
@@ -83,10 +85,14 @@ for cycle = 1:Ncycles
     R{1} = res(U{1}, F{1}, h);
     err = norm(R{1}(:), 2)/ sqrt((L-1)^2);
     fprintf('Cycle %d: error = %e\n', cycle, err);
+    
+   
+end
     L = 129; % number of grid points in each direction
     [X, Y] = meshgrid(linspace(0, 1, L), linspace(0, 1, L));
-
+    
     %f = rhs_func(X,Y);
+
 
     figure;
     %subplot(1, 2, 1);
@@ -98,4 +104,5 @@ for cycle = 1:Ncycles
     %subplot(1, 2, 2);
  
 end
-end
+    
+

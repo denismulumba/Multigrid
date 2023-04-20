@@ -2,7 +2,7 @@ close all
 clear all
 %Define problem parameterts
 
-L = 128; % number of grid points in each direction
+L = 5; % number of grid points in each direction
 [X, Y] = meshgrid(linspace(0, 1, L), linspace(0, 1, L));
 
 f = rhs_func(X,Y);
@@ -14,9 +14,9 @@ uo = zeros(L,L);
 %disp(size(uo))
 
 %Set up multigrid parameters
-Ncycles =  ;
-Npre = 4;
-Npost = 4;
+Ncycles = 3;
+Npre = 1;
+Npost = 1 ;
 
 %disp(size(f))
 %disp(u_exact)
@@ -39,9 +39,9 @@ figure;
 % ylabel('y');
 % zlabel('u');
 % subplot(1, 2, 2);
-%  surf(X, Y, u_exact);
-%  title('Exact solution');
-%  xlabel('x');
-%  ylabel('y');
-%  zlabel('u');
-
+surf(X, Y, u_exact);
+title('Exact solution');
+xlabel('x');
+ylabel('y');
+zlabel('u');
+% 

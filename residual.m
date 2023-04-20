@@ -23,9 +23,9 @@ function res = residual(u, f, h)
     end
     
     %Impose BCs
-    res(1,:) = 0;
-    res(m,:) = 0;
-    res(:,1) = 0;
-    res(:,n) = 0;
+%     res(1,:) = 0;
+%     res(m,:) = 0;
+%     res(:,1) = 0;
+%     res(:,n) = 0;
 %disp(res)
 end

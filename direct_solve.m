@@ -27,5 +27,5 @@ A = full(A);
 f = reshape(f', [], 1); % reshape f into a column vector
 u = A \ (h^2 * f); % solve linear system
 u = reshape(u, L, [])'; % reshape u into a matrix
-%disp(u)
+disp(u)
 end

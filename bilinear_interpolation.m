@@ -19,8 +19,8 @@ if nargin == 1
 end
 
 % Interpolate values
-for i = 1:m_coarse-1
-    for j = 1:n_coarse-1
+for i = 1:m_coarse-2
+    for j = 1:n_coarse-2
         % Coarse indices
         ic = i;
         jc = j;
@@ -59,7 +59,7 @@ for i = 1:m_coarse-1
             u_fine(i1,j1) = u_coarse(i,j);
             u_fine(i2,j1) = u_coarse(i+1,j);
             u_fine(i1,j2) = u_coarse(i,j+1);
-            u_fine(i2,j2) = u_coarse(i+1,j+1);
+            %u_fine(i2,j2) = u_coarse(i+1,j+1);
 
             if i == 1 
                 u_fine(i1,j1) = u_coarse(i,j);
@@ -82,6 +82,6 @@ for i = 1:m_coarse-1
         
     end
 end
-%disp(u_fine);
+disp(u_fine);
 
 end
